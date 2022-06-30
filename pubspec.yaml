@@ -41,6 +41,9 @@ dev_dependencies:
   json_serializable: '>4.4.0'
   curl_logger_dio_interceptor: ^0.0.3
 
+  # Flavor
+  flutter_flavorizr: ^2.1.3
+
 flutter:
   uses-material-design: true
 
@@ -73,3 +76,38 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flavorizr:
+  app:
+    android:
+      flavorDimensions: "flavor-type"
+    ios:
+
+  flavors:
+    dev:
+      app:
+        name: "Nws chat dev"
+
+      android:
+        applicationId: "vn.com.nws.chatapp.dev"
+
+      ios:
+        bundleId: "vn.com.nws.chatapp.dev"
+
+    stg:
+      app:
+        name: "Nws chat stg"
+
+      android:
+        applicationId: "vn.com.nws.chatapp.stg"
+      ios:
+        bundleId: "vn.com.nws.chatapp.stg"
+
+    prod:
+      app:
+        name: "Nws chat prod"
+
+      android:
+        applicationId: "vn.com.nws.chatapp"
+      ios:
+        bundleId: "vn.com.nws.chatapp"
