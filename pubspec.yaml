@@ -26,8 +26,13 @@ dependencies:
 
   # Utils
   equatable: ^2.0.3
-  intl: ^0.17.0
   flutter_easyloading: ^3.0.3
+
+  # localizetion
+  intl: ^0.17.0
+  intl_utils: ^2.6.1
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
