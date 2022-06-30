@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:nws_chat/generated/l10n.dart';
+import 'package:nws_chat/screens/home/view.dart';
+import 'package:nws_chat/screens/login/view.dart';
+import 'package:nws_chat/screens/splash/view.dart';
+import 'package:nws_chat/services/auth_service.dart';
 
 import 'flavors.dart';
 import 'pages/my_home_page.dart';
+import 'shared/logger/logger_utils.dart';
 
 class App extends StatelessWidget {
   @override
@@ -27,9 +32,17 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: _flavorBanner(
-        child: MyHomePage(),
+        child: SplashPage(),
         show: kDebugMode,
       ),
+      initialBinding: BindingsBuilder(
+        () {
+          Get.put(AuthService());
+        },
+      ),
+      enableLog: kDebugMode,
+      debugShowCheckedModeBanner: false,
+      logWriterCallback: Logger.write,
     );
   }
 
@@ -48,8 +61,6 @@ class App extends StatelessWidget {
         child: child,
       );
     }
-    return Container(
-      child: child,
-    );
+    return child;
   }
 }

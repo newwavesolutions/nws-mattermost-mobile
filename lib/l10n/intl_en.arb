@@ -1,1 +1,4 @@
-{}
+{
+  "@@locale": "en",
+  "hello": "en.arb"
+}
