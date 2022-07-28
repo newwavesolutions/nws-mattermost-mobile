@@ -1,47 +1,112 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
+assets/override
+dist
+build-ios
+*.zip
+server.PID
+mattermost.keystore
+tmp/
+.env
+env.d.ts
+
+# OSX
+#
 .DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
 
-# IntelliJ related
+# Xcode
+#
+ios/build/*
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.apk
+*.aab
+*.xcuserstate
+project.xcworkspace
+ios/Pods
+.podinstall
+
+# Android/IntelliJ
+#
+.idea
+.gradle
+local.properties
 *.iml
-*.ipr
-*.iws
-.idea/
+android/app/bin
+android/app/build
+android/build
+.settings
+.project
+.classpath
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# node.js
+#
+node_modules/
+npm-debug.log
+.npminstall
+yarn-error.log
+.yarninstall
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-/build/
+# BUCK
+buck-out/
+\.buckd/
+android/app/libs
+*.keystore
 
-# Web related
-lib/generated_plugin_registrant.dart
+# Vim
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+tags
 
-# Symbolication related
-app.*.symbols
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
 
-# Obfuscation related
-app.*.map.json
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
+fastlane/.env
+fastlane/report.xml
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Sentry
+android/sentry.properties
+ios/sentry.properties
+
+# Testing
+.nyc_output
+coverage
+.tmp
+
+# E2E testing
+mattermost-license.txt
+*.mattermost-license
+detox/artifacts
+detox/detox_pixel_4_xl_api_30
+
+# Bundle artifact
+*.jsbundle
+
+#editor-settings
+.vscode
+.scannerwork
+
+# Notice.txt generation
+!build/notice-file
+
