@@ -33,6 +33,7 @@
 			<array>
 				<string>mattermost</string>
 				<string>mmauthbeta</string>
+				<string>mmauth</string>
 			</array>
 		</dict>
 	</array>
