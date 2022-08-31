@@ -131,8 +131,8 @@ android {
         applicationId "vn.newwave.chat"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 404
-        versionName "1.53.0"
+        versionCode 418
+        versionName "1.55.0"
         multiDexEnabled = true
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
