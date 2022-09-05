@@ -36,6 +36,7 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
         android:windowSoftInputMode="adjustResize"
         android:launchMode="singleTask"
+        android:exported="true"
         android:taskAffinity="">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -70,7 +71,8 @@
         <activity
                 android:name="com.reactnativenavigation.controllers.NavigationActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-                android:resizeableActivity="true"/>
+                android:resizeableActivity="true"
+                android:exported="true"/>
         <activity
                 android:name="com.mattermost.share.ShareActivity"
                 android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
@@ -78,7 +80,8 @@
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme"
                 android:taskAffinity="com.mattermost.share"
-                android:launchMode="singleInstance">
+                android:launchMode="singleInstance"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
