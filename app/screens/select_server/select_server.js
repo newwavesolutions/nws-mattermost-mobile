@@ -3,8 +3,8 @@
 
 import merge from 'deepmerge';
 import PropTypes from 'prop-types';
-import React, {PureComponent} from 'react';
-import {intlShape} from 'react-intl';
+import React, { PureComponent } from 'react';
+import { intlShape } from 'react-intl';
 import {
     ActivityIndicator,
     Alert,
@@ -21,27 +21,27 @@ import {
     View,
 } from 'react-native';
 import Button from 'react-native-button';
-import {Navigation} from 'react-native-navigation';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { Navigation } from 'react-native-navigation';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import RNFetchBlob from 'rn-fetch-blob';
 import urlParse from 'url-parse';
 
-import {resetToChannel, goToScreen} from '@actions/navigation';
+import { resetToChannel, goToScreen } from '@actions/navigation';
 import LocalConfig from '@assets/config';
-import {Client4} from '@client/rest';
+import { Client4 } from '@client/rest';
 import AppVersion from '@components/app_version';
 import ErrorText from '@components/error_text';
 import FormattedText from '@components/formatted_text';
-import {Sso} from '@constants';
+import { Sso } from '@constants';
 import fetchConfig from '@init/fetch';
 import globalEventHandler from '@init/global_event_handler';
-import {t} from '@utils/i18n';
-import {preventDoubleTap} from '@utils/tap';
-import {changeOpacity} from '@utils/theme';
-import {isValidUrl, stripTrailingSlashes} from '@utils/url';
+import { t } from '@utils/i18n';
+import { preventDoubleTap } from '@utils/tap';
+import { changeOpacity } from '@utils/theme';
+import { isValidUrl, stripTrailingSlashes } from '@utils/url';
 
 import mattermostBucket from 'app/mattermost_bucket';
-import {GlobalStyles} from 'app/styles';
+import { GlobalStyles } from 'app/styles';
 
 export default class SelectServer extends PureComponent {
     static propTypes = {
@@ -77,6 +77,7 @@ export default class SelectServer extends PureComponent {
             connected: false,
             connecting: false,
             error: null,
+            url: "https://chat.newwave.vn"
         };
 
         this.cancelPing = null;
@@ -85,9 +86,9 @@ export default class SelectServer extends PureComponent {
     static getDerivedStateFromProps(props, state) {
         if (state.url === undefined && props.allowOtherServers && props.deepLinkURL) {
             const url = urlParse(props.deepLinkURL).host;
-            return {url};
+            return { url };
         } else if (state.url === undefined && props.serverUrl) {
-            return {url: props.serverUrl};
+            return { url: props.serverUrl };
         }
         return null;
     }
@@ -95,7 +96,7 @@ export default class SelectServer extends PureComponent {
     componentDidMount() {
         this.navigationEventListener = Navigation.events().bindComponent(this);
 
-        const {allowOtherServers, serverUrl} = this.props;
+        const { allowOtherServers, serverUrl } = this.props;
         if (!allowOtherServers && serverUrl) {
             // If the app is managed or AutoSelectServerUrl is true in the Config, the server url is set and the user can't change it
             // we automatically trigger the ping to move to the next screen
@@ -143,7 +144,7 @@ export default class SelectServer extends PureComponent {
         let url = this.sanitizeUrl(serverUrl, useHttp);
 
         try {
-            const resp = await fetch(url, {method: 'HEAD'});
+            const resp = await fetch(url, { method: 'HEAD' });
             if (resp?.rnfbRespInfo?.redirects?.length) {
                 url = resp.rnfbRespInfo.redirects[resp.rnfbRespInfo.redirects.length - 1];
             }
@@ -155,7 +156,7 @@ export default class SelectServer extends PureComponent {
     };
 
     goToNextScreen = (screen, title, passProps = {}, navOptions = {}) => {
-        const {allowOtherServers} = this.props;
+        const { allowOtherServers } = this.props;
         let visible = !LocalConfig.AutoSelectServerUrl;
 
         if (!allowOtherServers) {
@@ -212,7 +213,6 @@ export default class SelectServer extends PureComponent {
 
             return;
         }
-
         await globalEventHandler.resetState();
         if (LocalConfig.ExperimentalClientSideCertEnable && Platform.OS === 'ios') {
             RNFetchBlob.cba.selectCertificate((certificate) => {
@@ -231,8 +231,8 @@ export default class SelectServer extends PureComponent {
     });
 
     handleLoginOptions = async () => {
-        const {formatMessage} = this.context.intl;
-        const {config, license} = this.props;
+        const { formatMessage } = this.context.intl;
+        const { config, license } = this.props;
         const isLicensed = license.IsLicensed === 'true';
         const samlEnabled = isLicensed && config.EnableSaml === 'true' && license.SAML === 'true';
         const googleEnabled = isLicensed && config.EnableSignUpWithGoogle === 'true';
@@ -257,14 +257,14 @@ export default class SelectServer extends PureComponent {
         let props;
         if (redirectSSO) {
             screen = 'SSO';
-            title = formatMessage({id: 'mobile.routes.sso', defaultMessage: 'Single Sign-On'});
-            props = {ssoType: enabledSSOs[0]};
+            title = formatMessage({ id: 'mobile.routes.sso', defaultMessage: 'Single Sign-On' });
+            props = { ssoType: enabledSSOs[0] };
         } else if ((hasLoginForm && numberSSOs > 0) || numberSSOs > 1) {
             screen = 'LoginOptions';
-            title = formatMessage({id: 'mobile.routes.loginOptions', defaultMessage: 'Login Chooser'});
+            title = formatMessage({ id: 'mobile.routes.loginOptions', defaultMessage: 'Login Chooser' });
         } else {
             screen = 'Login';
-            title = formatMessage({id: 'mobile.routes.login', defaultMessage: 'Login'});
+            title = formatMessage({ id: 'mobile.routes.login', defaultMessage: 'Login' });
         }
 
         this.props.actions.resetPing();
@@ -287,7 +287,7 @@ export default class SelectServer extends PureComponent {
     };
 
     handleTextChanged = (url) => {
-        this.setState({url});
+        this.setState({ url });
     };
 
     inputRef = (ref) => {
@@ -354,7 +354,7 @@ export default class SelectServer extends PureComponent {
                 connecting: false,
                 error: result.error,
             });
-        } catch {
+        } catch (error) {
             if (cancel) {
                 return;
             }
@@ -379,8 +379,8 @@ export default class SelectServer extends PureComponent {
     };
 
     scheduleSessionExpiredNotification = () => {
-        const {intl} = this.context;
-        const {actions} = this.props;
+        const { intl } = this.context;
+        const { actions } = this.props;
 
         actions.scheduleExpiredNotification(intl);
     };
@@ -394,7 +394,7 @@ export default class SelectServer extends PureComponent {
 
         const host = urlParse(this.state.url, true).host || this.state.url;
 
-        const {formatMessage} = this.context.intl;
+        const { formatMessage } = this.context.intl;
         Alert.alert(
             formatMessage({
                 id: 'mobile.server_ssl.error.title',
@@ -405,13 +405,13 @@ export default class SelectServer extends PureComponent {
                 id: 'mobile.server_ssl.error.text',
                 defaultMessage: 'The certificate from {host} is not trusted.\n\nPlease contact your System Administrator to resolve the certificate issues and allow connections to this server.',
             },
-            {
-                host,
-            }),
+                {
+                    host,
+                }),
             [
-                {text: 'OK'},
+                { text: 'OK' },
             ],
-            {cancelable: false},
+            { cancelable: false },
         );
         return null;
     };
@@ -429,8 +429,8 @@ export default class SelectServer extends PureComponent {
     };
 
     render() {
-        const {formatMessage} = this.context.intl;
-        const {allowOtherServers} = this.props;
+        const { formatMessage } = this.context.intl;
+        const { allowOtherServers } = this.props;
         const {
             connected,
             connecting,
@@ -487,7 +487,7 @@ export default class SelectServer extends PureComponent {
                     keyboardVerticalOffset={0}
                     enabled={Platform.OS === 'ios'}
                 >
-                    <StatusBar barStyle={statusStyle}/>
+                    <StatusBar barStyle={statusStyle} />
                     <TouchableWithoutFeedback
                         onPress={this.blur}
                         accessible={false}
@@ -495,7 +495,7 @@ export default class SelectServer extends PureComponent {
                         <View style={[GlobalStyles.container, GlobalStyles.signupContainer]}>
                             <Image
                                 source={require('@assets/images/logo.png')}
-                                style={{height: 72, resizeMode: 'contain'}}
+                                style={{ height: 72, resizeMode: 'contain' }}
                             />
 
                             <View testID='select_server.header.text'>
@@ -517,10 +517,7 @@ export default class SelectServer extends PureComponent {
                                 autoCapitalize='none'
                                 autoCorrect={false}
                                 keyboardType='url'
-                                placeholder={formatMessage({
-                                    id: 'mobile.components.select_server_view.siteUrlPlaceholder',
-                                    defaultMessage: 'https://mattermost.example.com',
-                                })}
+                                placeholder={"https://chat.newwave.vn"}
                                 placeholderTextColor={changeOpacity('#000', 0.5)}
                                 returnKeyType='go'
                                 underlineColorAndroid='transparent'
@@ -544,7 +541,7 @@ export default class SelectServer extends PureComponent {
                             </View>
                         </View>
                     </TouchableWithoutFeedback>
-                    <AppVersion/>
+                    <AppVersion />
                 </KeyboardAvoidingView>
             </SafeAreaView>
         );

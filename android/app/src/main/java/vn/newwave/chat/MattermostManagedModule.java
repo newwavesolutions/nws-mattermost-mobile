@@ -1,4 +1,4 @@
-package com.mattermost.rnbeta;
+package vn.newwave.chat;
 
 import android.app.Activity;
 import android.content.Context;
